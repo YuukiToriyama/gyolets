@@ -11,8 +11,8 @@ const lcm = (a: number, b: number): number => {
 	const d = gcd(a, b);
 	return b * (a / d);
 }
-// ベクトルの足し算
-const addTwoVectors = (left: number[], right: number[]): number[] => {
+// ベクトルの足し算(left + right)
+const addVectors = (left: number[], right: number[]): number[] => {
 	if (left.length !== right.length) {
 		throw Error("要素の数が異なるので足し合わせることはできません");
 	}
@@ -22,8 +22,14 @@ const addTwoVectors = (left: number[], right: number[]): number[] => {
 	});
 	return result;
 }
+// ベクトルの引き算(left - right)
+const subVectors = (left: number[], right: number[]): number[] => {
+	right = right.map(elem => elem * (-1));
+	return addVectors(left, right);
+}
 export {
 	gcd,
 	lcm,
-	addTwoVectors
+	addVectors,
+	subVectors
 }

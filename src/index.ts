@@ -1,3 +1,5 @@
+import { addVectors, subVectors, lcm } from "./utils";
+
 interface elementaryRowOperationOption {
 	rapid: boolean // trueを指定すると同時に複数の行に足し引きするようになる
 }
@@ -20,10 +22,35 @@ const elementaryRowOperation = (matrix: Gyolets, option: elementaryRowOperationO
 				if (matrix.matrix[i].slice(0, n).every(elem => elem === 0) && matrix.matrix[i][n] !== 0) {
 					// pivot = [m,i]
 					// 他の行にm行を何倍かしたものを足し引きする
-					if (option.rapid) {
+					// 他の行で(i行目以外で)n個めの要素が0でないところを探す
+					for (let j = 0; j < m; j++) {
+						if (j !== i && matrix.matrix[j][n] !== 0) {
+							let row_i = matrix.matrix[i];
+							let row_j = matrix.matrix[j];
+							// in成分とjn成分の最小公倍数をとる
+							const _in = row_i[n];
+							const _jn = row_j[n];
+							const lcm_injn = lcm(_in, _jn);
+							// i行目、j行目を適当に整数倍する
+							row_i = row_i.map(elem => elem * lcm_injn / _in);
+							row_j = row_j.map(elem => elem * lcm_injn / _jn);
+							// j行目をi行目を使って整理する
+							if (_in > 0 && _jn > 0) {
+								row_j = subVectors(row_i, row_j);
+							} else {
+								row_j = addVectors(row_i, row_j);
+							}
+							// もとの行列に整理されたj行目を書き込む
+							matrix.matrix[j] = row_j;
+							if (option.rapid) {
+								// option.rapidフラグが立っている場合、他の行に対しても計算を続ける
+								continue;
+							} else {
+								// option.rapid == falseのとき、forループを抜けて計算を終了する
+								break;
+							}
 
-					} else {
-
+						}
 					}
 					// 計算が終わったのでwhileループを抜け出す
 					break;

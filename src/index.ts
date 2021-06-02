@@ -3,7 +3,9 @@ import { addVectors, subVectors, lcm } from "./utils";
 interface elementaryRowOperationOption {
 	rapid: boolean // trueを指定すると同時に複数の行に足し引きするようになる
 }
-const elementaryRowOperation = (matrix: Gyolets, option: elementaryRowOperationOption): { matrix: Gyolets, pivot: [number, number] } => {
+const elementaryRowOperation = (matrix: Gyolets, option: elementaryRowOperationOption): { matrix: Gyolets, pivots: [number, number][] } => {
+	// どの行のどの要素に注目して行基本変形を行なったのかを記録しておく
+	let pivots: [number, number][] = [];
 	// m行n列をイメージ
 	let m: number = matrix.rowSize;
 	let n: number = 0;
@@ -20,7 +22,8 @@ const elementaryRowOperation = (matrix: Gyolets, option: elementaryRowOperationO
 			for (let i = 0; i < m; i++) {
 				// m行に注目し、要素m0からm(n-1)までがすべて0である場合のみその行を選ぶ
 				if (matrix.matrix[i].slice(0, n).every(elem => elem === 0) && matrix.matrix[i][n] !== 0) {
-					// pivot = [m,i]
+					// ピボットを記録
+					pivots.push([m, i]);
 					// 他の行にm行を何倍かしたものを足し引きする
 					// 他の行で(i行目以外で)n個めの要素が0でないところを探す
 					for (let j = 0; j < m; j++) {
@@ -49,7 +52,6 @@ const elementaryRowOperation = (matrix: Gyolets, option: elementaryRowOperationO
 								// option.rapid == falseのとき、forループを抜けて計算を終了する
 								break;
 							}
-
 						}
 					}
 					// 計算が終わったのでwhileループを抜け出す
@@ -57,6 +59,10 @@ const elementaryRowOperation = (matrix: Gyolets, option: elementaryRowOperationO
 				}
 			}
 		}
+	}
+	return {
+		matrix: matrix,
+		pivots: pivots
 	}
 }
 
@@ -78,11 +84,20 @@ class Gyolets /*extends Array*/ {
 		})
 	}
 
-	rowReduction = (): Gyolets => {
-
+	rowReduction = (option?: elementaryRowOperationOption): Gyolets => {
+		const _processed = elementaryRowOperation(this, option || {
+			rapid: false // defaultはfalse
+		});
+		// 行基本変形を行なった行列を表示
+		_processed.matrix.log();
+		// ピボットを表示
+		console.log(_processed.pivots);
+		return _processed.matrix;
 	}
 }
 
+// 終了条件
+// 入力と出力がイコールになったら(あるいはpivots = []となったら)
 const a = new Gyolets([[1, 20, 3], [4, 5, 6]], {
 	row: 2,
 	column: 3

@@ -1,0 +1,23 @@
+{
+	"name": "@toriyama/gyolets",
+	"description": "行列計算ライブラリ ## MEMO - 動機 \t- 行列計算のライブラリを作りたい - 欲しい機能 \t- 行列の簡約化(計算のプロセスも表示したい) \t- 逆行列の計算 \t- できれば小数ではなく有理数で結果を表示したい",
+	"version": "0.9.0",
+	"main": "dist/index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "tsc"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/YUUKIToriyama/gyolets.git"
+	},
+	"author": "YUUKIToriyama <github@toriyama.dev>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/YUUKIToriyama/gyolets/issues"
+	},
+	"homepage": "https://github.com/YUUKIToriyama/gyolets#readme",
+	"devDependencies": {
+		"typescript": "^4.3.2"
+	}
+}

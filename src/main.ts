@@ -74,30 +74,25 @@ const elementaryRowOperation = (matrix: Gyolets, option: elementaryRowOperationO
 	}
 }
 
-interface GyoletsConstructorProps {
-	matrix: number[][]
-	matrixSize: {
-		row: number,
-		column: number
-	}
-	isReduced?: boolean
-	options?: elementaryRowOperationOption
+interface GyoletsConstructorOptions extends elementaryRowOperationOption {
+	verbose?: boolean // trueにすると計算過程を表示するようになる
 }
 export default class Gyolets {
 	matrix: number[][];
 	rowSize: number;
 	columnSize: number;
-	options: elementaryRowOperationOption;
+	options: GyoletsConstructorOptions;
 	isReduced: boolean;
 
-	constructor(props: GyoletsConstructorProps) {
-		this.matrix = props.matrix;
-		this.rowSize = props.matrixSize.row;
-		this.columnSize = props.matrixSize.column;
-		this.options = props.options || {
-			rapid: false // defaultはfalse
+	constructor(matrix: number[][], matrixSize: { row: number, column: number }, options: GyoletsConstructorOptions, isReduced?: boolean) {
+		this.matrix = matrix;
+		this.rowSize = matrixSize.row;
+		this.columnSize = matrixSize.column;
+		this.options = {
+			rapid: options.rapid ? true : false, // defaultはfalse
+			verbose: options.verbose ? true : false // defaultはtrue
 		};
-		this.isReduced = props.isReduced || false;
+		this.isReduced = isReduced || false;
 	}
 
 	log = () => {
@@ -106,20 +101,20 @@ export default class Gyolets {
 		})
 	}
 
-	rowReduction = () => {
+	reduction = (): Gyolets => {
 		const _processed = elementaryRowOperation(this, this.options);
-		// 終了条件
-		// 入力と出力がイコールになったら(あるいはpivots = []となったら)
-		if (_processed.pivots[0] === undefined) {
-			console.log("簡約化は終了しました");
-		} else {
+		// verboseオプションがonになっている場合
+		if (this.options.verbose === true) {
 			// 行基本変形を行なった行列を表示
 			_processed.matrix.log();
 			// ピボットを表示
 			console.log(_processed.pivots);
-			// 再び計算を行なう
-			this.matrix = _processed.matrix.matrix;
-			this.rowReduction();
 		}
+		// 変形が手詰まりになったらisReducedのフラグを建てる
+		if (_processed.pivots[0] === undefined) {
+			this.isReduced = true;
+			console.log("簡約化は終了しました");
+		}
+		return this.isReduced ? this : this.reduction();
 	}
 }

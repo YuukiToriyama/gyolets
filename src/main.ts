@@ -74,19 +74,30 @@ const elementaryRowOperation = (matrix: Gyolets, option: elementaryRowOperationO
 	}
 }
 
-class Gyolets {
+interface GyoletsConstructorProps {
+	matrix: number[][]
+	matrixSize: {
+		row: number,
+		column: number
+	}
+	isReduced?: boolean
+	options?: elementaryRowOperationOption
+}
+export default class Gyolets {
 	matrix: number[][];
 	rowSize: number;
 	columnSize: number;
 	options: elementaryRowOperationOption;
+	isReduced: boolean;
 
-	constructor(_matrix: number[][], _matrixSize: { row: number, column: number }, _options?: elementaryRowOperationOption) {
-		this.matrix = _matrix;
-		this.rowSize = _matrixSize.row;
-		this.columnSize = _matrixSize.column;
-		this.options = _options || {
+	constructor(props: GyoletsConstructorProps) {
+		this.matrix = props.matrix;
+		this.rowSize = props.matrixSize.row;
+		this.columnSize = props.matrixSize.column;
+		this.options = props.options || {
 			rapid: false // defaultはfalse
 		};
+		this.isReduced = props.isReduced || false;
 	}
 
 	log = () => {
@@ -112,9 +123,3 @@ class Gyolets {
 		}
 	}
 }
-
-const a = new Gyolets([[2, -1, 5], [0, 2, 2], [1, 0, 3]], {
-	row: 3,
-	column: 3
-}, { rapid: false });
-a.rowReduction();

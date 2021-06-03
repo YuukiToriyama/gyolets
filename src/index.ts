@@ -58,6 +58,7 @@ const elementaryRowOperation = (matrix: Gyolets, option: elementaryRowOperationO
 					break;
 				}
 			}
+			break;
 		}
 	}
 	return {
@@ -66,16 +67,19 @@ const elementaryRowOperation = (matrix: Gyolets, option: elementaryRowOperationO
 	}
 }
 
-class Gyolets /*extends Array*/ {
+class Gyolets {
 	matrix: number[][];
 	rowSize: number;
 	columnSize: number;
+	options: elementaryRowOperationOption;
 
-	constructor(_matrix: number[][], _matrixSize: { row: number, column: number }) {
-		//super();
+	constructor(_matrix: number[][], _matrixSize: { row: number, column: number }, _options?: elementaryRowOperationOption) {
 		this.matrix = _matrix;
 		this.rowSize = _matrixSize.row;
 		this.columnSize = _matrixSize.column;
+		this.options = _options || {
+			rapid: false // defaultはfalse
+		};
 	}
 
 	log = () => {
@@ -84,22 +88,26 @@ class Gyolets /*extends Array*/ {
 		})
 	}
 
-	rowReduction = (option?: elementaryRowOperationOption): Gyolets => {
-		const _processed = elementaryRowOperation(this, option || {
-			rapid: false // defaultはfalse
-		});
-		// 行基本変形を行なった行列を表示
-		_processed.matrix.log();
-		// ピボットを表示
-		console.log(_processed.pivots);
-		return _processed.matrix;
+	rowReduction = () => {
+		const _processed = elementaryRowOperation(this, this.options);
+		// 終了条件
+		// 入力と出力がイコールになったら(あるいはpivots = []となったら)
+		if (_processed.pivots[0] === undefined) {
+			console.log("簡約化は終了しました");
+		} else {
+			// ピボットを表示
+			console.log(_processed.pivots);
+			// 行基本変形を行なった行列を表示
+			_processed.matrix.log();
+			// 再び計算を行なう
+			this.matrix = _processed.matrix.matrix;
+			this.rowReduction();
+		}
 	}
 }
 
-// 終了条件
-// 入力と出力がイコールになったら(あるいはpivots = []となったら)
-const a = new Gyolets([[1, 20, 3], [4, 5, 6]], {
-	row: 2,
+const a = new Gyolets([[2, -1, 5], [0, 2, 2], [1, 0, 3]], {
+	row: 3,
 	column: 3
-});
-console.log(a.log());
+}, { rapid: false });
+a.rowReduction();

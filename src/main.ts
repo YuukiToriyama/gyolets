@@ -101,13 +101,13 @@ export default class Gyolets {
 	 * @param options オプションを指定します
 	 * @param isReduced (ユーザーが指定する必要はありません)
 	 */
-	constructor(matrix: number[][], matrixSize: { row: number, column: number }, options: GyoletsConstructorOptions, isReduced?: boolean) {
+	constructor(matrix: number[][], matrixSize: { row: number, column: number }, options?: GyoletsConstructorOptions, isReduced?: boolean) {
 		this.matrix = matrix;
 		this.rowSize = matrixSize.row;
 		this.columnSize = matrixSize.column;
 		this.options = {
-			rapid: options.rapid ? true : false, // defaultはfalse
-			verbose: options.verbose ? true : false // defaultはtrue
+			rapid: options!!.rapid ? true : false, // defaultはfalse
+			verbose: options!!.verbose ? true : false // defaultはtrue
 		};
 		this.isReduced = isReduced || false;
 	}
@@ -131,10 +131,10 @@ export default class Gyolets {
 		const _processed = elementaryRowOperation(this, this.options);
 		// verboseオプションがonになっている場合
 		if (this.options.verbose === true) {
-			// 行基本変形を行なった行列を表示
-			_processed.matrix.log();
 			// ピボットを表示
 			console.log(_processed.pivots);
+			// 行基本変形を行なった行列を表示
+			_processed.matrix.log();
 		}
 		// 変形が手詰まりになったらisReducedのフラグを建てる
 		if (_processed.pivots[0] === undefined) {

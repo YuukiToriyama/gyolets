@@ -1,4 +1,4 @@
-import { addVectors, subVectors, lcm } from "./utils";
+import { Vec, lcm } from "./utils";
 
 interface elementaryRowOperationOption {
 	rapid: boolean // trueを指定すると同時に複数の行に足し引きするようになる
@@ -39,9 +39,9 @@ const elementaryRowOperation = (matrix: Gyolets, option: elementaryRowOperationO
 							row_j = row_j.map(elem => elem * lcm_injn / _jn);
 							// j行目をi行目を使って整理する
 							if (_in > 0 && _jn > 0) {
-								row_j = subVectors(row_i, row_j);
+								row_j = Vec.sub(row_i, row_j);
 							} else {
-								row_j = addVectors(row_i, row_j);
+								row_j = Vec.add(row_i, row_j);
 							}
 							// もとの行列に整理されたj行目を書き込む
 							matrix.matrix[j] = row_j;

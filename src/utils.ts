@@ -11,25 +11,37 @@ const lcm = (a: number, b: number): number => {
 	const d = gcd(a, b);
 	return b * (a / d);
 }
-// ベクトルの足し算(left + right)
-const addVectors = (left: number[], right: number[]): number[] => {
-	if (left.length !== right.length) {
-		throw Error("要素の数が異なるので足し合わせることはできません");
+const Vec = {
+	// ベクトルの足し算(left + right)
+	add: (left: number[], right: number[]): number[] => {
+		if (left.length !== right.length) {
+			throw Error("要素の数が異なるので足し合わせることはできません");
+		}
+		let result: number[] = [];
+		left.forEach((elem, index) => {
+			result.push(elem + right[index]);
+		});
+		return result;
+	},
+	// ベクトルの引き算(left - right)
+	sub: (left: number[], right: number[]): number[] => {
+		right = right.map(elem => elem * (-1));
+		return Vec.add(left, right);
+	},
+	// ベクトルの約分
+	cancel: (vec: number[]): number[] => {
+		let _vec = [...vec];
+		while (_vec.length >= 2) {
+			const _a = _vec.pop();
+			const _b = _vec.pop();
+			// @ts-ignore
+			_vec.push(gcd(_a, _b));
+		}
+		return (_vec[0] === 1) ? vec : vec.map(elem => elem / _vec[0]);
 	}
-	let result: number[] = [];
-	left.forEach((elem, index) => {
-		result.push(elem + right[index]);
-	});
-	return result;
-}
-// ベクトルの引き算(left - right)
-const subVectors = (left: number[], right: number[]): number[] => {
-	right = right.map(elem => elem * (-1));
-	return addVectors(left, right);
 }
 export {
 	gcd,
 	lcm,
-	addVectors,
-	subVectors
+	Vec
 }

@@ -32,12 +32,16 @@ const elementaryRowOperation = (matrix: Gyolets, option: elementaryRowOperationO
 							// in成分とjn成分の最小公倍数をとる
 							const _in = row_i[n];
 							const _jn = row_j[n];
-							const lcm_injn = lcm(_in, _jn);
-							// i行目、j行目を適当に整数倍する
-							row_i = row_i.map(elem => elem * lcm_injn / _in);
-							row_j = row_j.map(elem => elem * lcm_injn / _jn);
+							// 絶対値で_in,_jnが等しいときは最小公倍数をとる必要がなく単純に足し引きすれば良い
+							// 異なる場合だけ最小公倍数を計算する
+							if (Math.abs(_in) !== Math.abs(_jn)) {
+								const lcm_injn = lcm(_in, _jn);
+								// i行目、j行目を適当に整数倍する
+								row_i = row_i.map(elem => elem * lcm_injn / _in);
+								row_j = row_j.map(elem => elem * lcm_injn / _jn);
+							}
 							// j行目をi行目を使って整理する
-							if (_in > 0 && _jn > 0) {
+							if (_in * _jn > 0) {
 								row_j = Vec.sub(row_i, row_j);
 							} else {
 								row_j = Vec.add(row_i, row_j);

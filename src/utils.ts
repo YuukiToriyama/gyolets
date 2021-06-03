@@ -30,14 +30,14 @@ const Vec = {
 	},
 	// ベクトルの約分
 	cancel: (vec: number[]): number[] => {
-		let _vec = [...vec];
+		let _vec = vec.filter(elem => elem !== 0);
 		while (_vec.length >= 2) {
 			const _a = _vec.pop();
 			const _b = _vec.pop();
 			// @ts-ignore
 			_vec.push(gcd(_a, _b));
 		}
-		return (_vec[0] === 1) ? vec : vec.map(elem => elem / _vec[0]);
+		return (Math.abs(_vec[0]) === 1 || _vec[0] === undefined) ? vec : vec.map(elem => elem / _vec[0]);
 	}
 }
 export {

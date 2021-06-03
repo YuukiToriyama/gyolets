@@ -28,8 +28,9 @@ const elementaryRowOperation = (matrix: Gyolets, option: elementaryRowOperationO
 					// 他の行で(i行目以外で)n個めの要素が0でないところを探す
 					for (let j = 0; j < m; j++) {
 						if (j !== i && matrix.matrix[j][n] !== 0) {
-							let row_i = matrix.matrix[i];
-							let row_j = matrix.matrix[j];
+							// i行目j行目を切り出す(とりあえず約分しておく)
+							let row_i = Vec.cancel(matrix.matrix[i]);
+							let row_j = Vec.cancel(matrix.matrix[j]);
 							// in成分とjn成分の最小公倍数をとる
 							const _in = row_i[n];
 							const _jn = row_j[n];
@@ -44,7 +45,10 @@ const elementaryRowOperation = (matrix: Gyolets, option: elementaryRowOperationO
 								row_j = Vec.add(row_i, row_j);
 							}
 							// もとの行列に整理されたj行目を書き込む
-							matrix.matrix[j] = row_j;
+							// 書き込む前に約分する
+							console.log(row_j)
+							matrix.matrix[j] = Vec.cancel(row_j);
+							matrix.matrix[i] = row_i;
 							if (option.rapid) {
 								// option.rapidフラグが立っている場合、他の行に対しても計算を続ける
 								continue;

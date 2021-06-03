@@ -22,8 +22,6 @@ const elementaryRowOperation = (matrix: Gyolets, option: elementaryRowOperationO
 			for (let i = 0; i < m; i++) {
 				// m行に注目し、要素m0からm(n-1)までがすべて0である場合のみその行を選ぶ
 				if (matrix.matrix[i].slice(0, n).every(elem => elem === 0) && matrix.matrix[i][n] !== 0) {
-					// ピボットを記録
-					pivots.push([m, i]);
 					// 他の行にm行を何倍かしたものを足し引きする
 					// 他の行で(i行目以外で)n個めの要素が0でないところを探す
 					for (let j = 0; j < m; j++) {
@@ -46,9 +44,10 @@ const elementaryRowOperation = (matrix: Gyolets, option: elementaryRowOperationO
 							}
 							// もとの行列に整理されたj行目を書き込む
 							// 書き込む前に約分する
-							console.log(row_j)
 							matrix.matrix[j] = Vec.cancel(row_j);
 							matrix.matrix[i] = row_i;
+							// ピボットを記録
+							pivots.push([i + 1, j + 1]);
 							if (option.rapid) {
 								// option.rapidフラグが立っている場合、他の行に対しても計算を続ける
 								continue;
@@ -99,10 +98,10 @@ class Gyolets {
 		if (_processed.pivots[0] === undefined) {
 			console.log("簡約化は終了しました");
 		} else {
-			// ピボットを表示
-			console.log(_processed.pivots);
 			// 行基本変形を行なった行列を表示
 			_processed.matrix.log();
+			// ピボットを表示
+			console.log(_processed.pivots);
 			// 再び計算を行なう
 			this.matrix = _processed.matrix.matrix;
 			this.rowReduction();

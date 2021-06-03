@@ -3,6 +3,13 @@ import { Vec, lcm } from "./utils";
 interface elementaryRowOperationOption {
 	rapid: boolean // trueを指定すると同時に複数の行に足し引きするようになる
 }
+/**
+ * function elementaryRowOperation
+ * 行基本変形を進めるための関数です。
+ * @param matrix 変形を行ないたい行列オブジェクトを指定します
+ * @param option 行基本変形に際してオプションを指定します
+ * @returns 行基本変形を施した行列オブジェクトとピボット(変形時にどの行に注目したかのヒント)を返します
+ */
 const elementaryRowOperation = (matrix: Gyolets, option: elementaryRowOperationOption): { matrix: Gyolets, pivots: [number, number][] } => {
 	// どの行のどの要素に注目して行基本変形を行なったのかを記録しておく
 	let pivots: [number, number][] = [];
@@ -74,16 +81,26 @@ const elementaryRowOperation = (matrix: Gyolets, option: elementaryRowOperationO
 	}
 }
 
-interface GyoletsConstructorOptions extends elementaryRowOperationOption {
+export interface GyoletsConstructorOptions extends elementaryRowOperationOption {
 	verbose?: boolean // trueにすると計算過程を表示するようになる
 }
+/**
+ * Gyoletsクラス
+ * 行列オブジェクトを作成します。
+ */
 export default class Gyolets {
 	matrix: number[][];
 	rowSize: number;
 	columnSize: number;
 	options: GyoletsConstructorOptions;
 	isReduced: boolean;
-
+	/**
+	 * コンストラクタ
+	 * @param matrix 配列オブジェクトに変換したい二次元配列を指定します
+	 * @param matrixSize 二次元配列の大きさを指定します
+	 * @param options オプションを指定します
+	 * @param isReduced (ユーザーが指定する必要はありません)
+	 */
 	constructor(matrix: number[][], matrixSize: { row: number, column: number }, options: GyoletsConstructorOptions, isReduced?: boolean) {
 		this.matrix = matrix;
 		this.rowSize = matrixSize.row;
@@ -95,12 +112,21 @@ export default class Gyolets {
 		this.isReduced = isReduced || false;
 	}
 
+	/**
+	 * Gyolets.log()
+	 * 行列をコンソールに出力します。
+	 */
 	log = () => {
 		this.matrix.forEach(row => {
 			console.log(row.join("\t"));
 		})
 	}
 
+	/**
+	 * Gyolets.reduction()
+	 * 行基本変形を繰り返し行列の簡約化を行ないます。
+	 * @returns 簡約化済みの行列オブジェクトを返します
+	 */
 	reduction = (): Gyolets => {
 		const _processed = elementaryRowOperation(this, this.options);
 		// verboseオプションがonになっている場合

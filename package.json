@@ -7,7 +7,8 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "tsc",
-		"build:watch": "tsc --watch"
+		"build:watch": "tsc --watch",
+		"docs": "typedoc"
 	},
 	"repository": {
 		"type": "git",
@@ -20,6 +21,7 @@
 	},
 	"homepage": "https://github.com/YUUKIToriyama/gyolets#readme",
 	"devDependencies": {
-		"typescript": "^4.3.2"
+		"typedoc": "^0.20.36",
+		"typescript": "^4.2.4"
 	}
 }

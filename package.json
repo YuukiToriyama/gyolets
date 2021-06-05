@@ -5,7 +5,7 @@
 	"main": "dist/main.js",
 	"bin": "dist/bin.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
+		"test": "jest",
 		"build": "tsc && npm run docs",
 		"build:watch": "tsc --watch",
 		"docs": "typedoc",
@@ -22,11 +22,17 @@
 	},
 	"homepage": "https://github.com/YUUKIToriyama/gyolets#readme",
 	"devDependencies": {
+		"@types/jest": "^26.0.23",
 		"@types/node": "^15.9.0",
+		"jest": "^27.0.4",
+		"ts-jest": "^27.0.2",
 		"typedoc": "^0.20.36",
 		"typescript": "^4.2.4"
 	},
 	"dependencies": {
 		"cac": "^6.7.3"
+	},
+	"jest": {
+		"preset": "ts-jest"
 	}
 }

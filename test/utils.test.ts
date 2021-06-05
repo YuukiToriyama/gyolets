@@ -62,4 +62,52 @@ describe("最小公倍数", () => {
 			expect(lcm(...testCase.args)).toEqual(testCase.result);
 		})
 	})
+});
+
+describe("ベクトル演算", () => {
+	type Vector = number[];
+	const vectors: Vector[] = [
+		[1, 2, 3, 4, 5],
+		[-1, 1, -1, 1, -1],
+		[4, 6, 10, 2, 0],
+		[6, 36, 12, 54, -12],
+		[1, 2, 3],
+		[3, 4, 5]
+	];
+	describe("足し算", () => {
+		test("[1,2,3] + [3,4,5]", () => {
+			expect(Vec.add(vectors[4], vectors[5])).toStrictEqual([4, 6, 8]);
+		});
+		test("[1,2,3,4,5] + [-1,1,-1,1,-1]", () => {
+			expect(Vec.add(vectors[0], vectors[1])).toStrictEqual([0, 3, 2, 5, 4]);
+		});
+		test("[1,2,3] + [1,2,3,4,5] shuld throw Error", () => {
+			expect(() => Vec.add(vectors[4], vectors[0])).toThrow();
+		});
+	});
+	describe("引き算", () => {
+		test("[1,2,3] - [3,4,5]", () => {
+			expect(Vec.sub(vectors[4], vectors[5])).toStrictEqual([-2, -2, -2]);
+		});
+		test("[1,2,3,4,5] - [-1,1,-1,1,-1]", () => {
+			expect(Vec.sub(vectors[0], vectors[1])).toStrictEqual([2, 1, 4, 3, 6]);
+		});
+		test("[1,2,3] - [1,2,3,4,5] shuld throw Error", () => {
+			expect(() => Vec.sub(vectors[4], vectors[0])).toThrow();
+		});
+	});
+	describe("約分", () => {
+		test("[1,2,3,4,5]", () => {
+			expect(Vec.cancel(vectors[0])).toStrictEqual(vectors[0]);
+		});
+		test("[-1,1,-1,1,-1]", () => {
+			expect(Vec.cancel(vectors[1])).toStrictEqual([1, -1, 1, -1, 1]);
+		});
+		test("[4,6,10,2,0]", () => {
+			expect(Vec.cancel(vectors[2])).toStrictEqual([2, 3, 5, 1, 0]);
+		});
+		test("[6,36,12,54,-12]", () => {
+			expect(Vec.cancel(vectors[3])).toStrictEqual([1, 6, 2, 9, -2]);
+		});
+	});
 })

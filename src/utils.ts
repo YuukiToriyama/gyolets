@@ -18,7 +18,7 @@ const Vec = {
 	// ベクトルの足し算(left + right)
 	add: (left: number[], right: number[]): number[] => {
 		if (left.length !== right.length) {
-			throw Error("要素の数が異なるので足し合わせることはできません");
+			throw Error("要素の数が異なります");
 		}
 		let result: number[] = [];
 		left.forEach((elem, index) => {
@@ -40,7 +40,8 @@ const Vec = {
 			// @ts-ignore
 			_vec.push(gcd(_a, _b));
 		}
-		return (Math.abs(_vec[0]) === 1 || _vec[0] === undefined) ? vec : vec.map(elem => elem / _vec[0]);
+		vec = (Math.abs(_vec[0]) === 1 || _vec[0] === undefined) ? vec : vec.map(elem => elem / _vec[0]);
+		return (vec[0] < 0) ? vec.map(elem => elem * -1) : vec;
 	}
 }
 export {

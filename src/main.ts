@@ -113,13 +113,19 @@ export default class Gyolets {
 	}
 
 	/**
-	 * Gyolets.log()
+	 * Gyolets.toArray()
+	 * Gyoletsオブジェクトを二次元配列に変換します
+	 */
+	toArray = (): number[][] => {
+		return this.matrix;
+	}
+
+	/**
+	 * Gyolets.toString()
 	 * 行列をコンソールに出力します。
 	 */
-	log = () => {
-		this.matrix.forEach(row => {
-			console.log(row.join("\t"));
-		})
+	toString = (): string => {
+		return this.matrix.map(row => row.join("\t")).join("\n");
 	}
 
 	/**
@@ -134,7 +140,7 @@ export default class Gyolets {
 			// ピボットを表示
 			console.log(_processed.pivots);
 			// 行基本変形を行なった行列を表示
-			_processed.matrix.log();
+			console.log(_processed.matrix.toString());
 		}
 		// 変形が手詰まりになったらisReducedのフラグを建てる
 		if (_processed.pivots[0] === undefined) {

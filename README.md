@@ -2,7 +2,7 @@
 # gyolets
 ## Abstract
 行列の簡約化を行なうライブラリです。  
-CLIツールとして使えるほか、ライブラリとして他のプログラムやWebアプリに組み込んで使いこともできます。  
+CLIツールとして使えるほか、ライブラリとして他のプログラムやWebアプリに組み込んで使うこともできます。  
 
 ## Usage
 ### CLI
@@ -28,7 +28,7 @@ const mat = new Gyolets([
 	[7, 8, 9]
 ], {row: 3, column: 3});
 const reducedMat = mat.reduction();
-reducedMat.log();
+console.log(reducedMat.toString());
 ```
 ```console
 1	0	-1

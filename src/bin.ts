@@ -3,7 +3,7 @@ import { cac } from "cac";
 import Gyolets from "./main";
 
 const cli = cac("@toriyama/gyolets");
-cli.version("0.9.0");
+cli.version("0.9.1");
 cli.help();
 
 cli.option("-m, --matrix <number[][]>", "行列オブジェクトに変換したい二次元配列を指定");
@@ -24,7 +24,7 @@ if (parsed.options.matrix !== undefined) {
 		verbose: parsed.options.verbose,
 		rapid: parsed.options.rapid
 	});
-	mat.log();
+	console.log(mat.toString());
 	const result = mat.reduction();
-	result.log();
+	console.log(result.toString());
 }

@@ -8,6 +8,9 @@ const gcd = (a: number, b: number): number => {
 }
 // 最小公倍数の計算
 const lcm = (a: number, b: number): number => {
+	if (a == 0 && b == 0) {
+		return 0;
+	}
 	const d = gcd(a, b);
 	return b * (a / d);
 }

@@ -19,5 +19,11 @@
 	"typedocOptions": {
 		"entryPoints": ["src/main.ts"],
 		"out": "docs"
-	}
+	},
+	"include": [
+		"./src"
+	],
+	"exclude": [
+		"./test"
+	]
 }

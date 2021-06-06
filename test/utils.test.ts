@@ -55,6 +55,10 @@ describe("最小公倍数", () => {
 		{
 			args: [0, 0],
 			result: 0
+		},
+		{
+			args: [2, -1],
+			result: 2
 		}
 	];
 	testCases.forEach(testCase => {
@@ -104,7 +108,7 @@ describe("ベクトル演算", () => {
 			expect(Vec.cancel(vectors[1])).toStrictEqual([1, -1, 1, -1, 1]);
 		});
 		test("[0,0,-4,6,10]", () => {
-			expect(Vec.cancel(vectors[2])).toStrictEqual([0, 0, 2, 3, 5]);
+			expect(Vec.cancel(vectors[2])).toStrictEqual([0, 0, 2, -3, -5]);
 		});
 		test("[6,36,12,54,-12]", () => {
 			expect(Vec.cancel(vectors[3])).toStrictEqual([1, 6, 2, 9, -2]);

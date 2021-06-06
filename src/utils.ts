@@ -1,5 +1,7 @@
 // 最大公約数の計算
 const gcd = (a: number, b: number): number => {
+	a = Math.abs(a);
+	b = Math.abs(b);
 	if (b === 0) {
 		return a;
 	} else {
@@ -8,6 +10,8 @@ const gcd = (a: number, b: number): number => {
 }
 // 最小公倍数の計算
 const lcm = (a: number, b: number): number => {
+	a = Math.abs(a);
+	b = Math.abs(b);
 	if (a == 0 && b == 0) {
 		return 0;
 	}
@@ -33,15 +37,21 @@ const Vec = {
 	},
 	// ベクトルの約分
 	cancel: (vec: number[]): number[] => {
+		// 配列内の0でない要素を取得
 		let _vec = vec.filter(elem => elem !== 0);
 		while (_vec.length >= 2) {
+			// 右側から2つづつ取り出し、
 			const _a = _vec.pop();
 			const _b = _vec.pop();
+			// 最大公約数を求めもとに戻す。これを配列の要素が一つになるまで繰り返す。
 			// @ts-ignore
 			_vec.push(gcd(_a, _b));
 		}
-		vec = (Math.abs(_vec[0]) === 1 || _vec[0] === undefined) ? vec : vec.map(elem => elem / _vec[0]);
-		return (vec[0] < 0) ? vec.map(elem => elem * -1) : vec;
+		// 最大公約数で配列を割る
+		vec = vec.map(elem => elem / _vec[0]);
+		// 配列の0でない最初の要素がプラスになるようにする
+		const firstElemNotZero = vec.filter(elem => elem !== 0)[0];
+		return (firstElemNotZero < 0) ? vec.map(elem => (elem === 0) ? 0 : elem * -1) : vec;
 	}
 }
 export {

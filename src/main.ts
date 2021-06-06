@@ -56,7 +56,6 @@ const elementaryRowOperation = (matrix: Gyolets, option: elementaryRowOperationO
 							// もとの行列に整理されたj行目を書き込む
 							// 書き込む前に約分する
 							matrix.matrix[j] = Vec.cancel(row_j);
-							matrix.matrix[i] = row_i;
 							// ピボットを記録
 							pivots.push([i + 1, j + 1]);
 							if (option.rapid) {

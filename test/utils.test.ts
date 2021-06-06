@@ -69,7 +69,7 @@ describe("ベクトル演算", () => {
 	const vectors: Vector[] = [
 		[1, 2, 3, 4, 5],
 		[-1, 1, -1, 1, -1],
-		[4, 6, 10, 2, 0],
+		[0, 0, -4, 6, 10],
 		[6, 36, 12, 54, -12],
 		[1, 2, 3],
 		[3, 4, 5]
@@ -103,8 +103,8 @@ describe("ベクトル演算", () => {
 		test("[-1,1,-1,1,-1]", () => {
 			expect(Vec.cancel(vectors[1])).toStrictEqual([1, -1, 1, -1, 1]);
 		});
-		test("[4,6,10,2,0]", () => {
-			expect(Vec.cancel(vectors[2])).toStrictEqual([2, 3, 5, 1, 0]);
+		test("[0,0,-4,6,10]", () => {
+			expect(Vec.cancel(vectors[2])).toStrictEqual([0, 0, 2, 3, 5]);
 		});
 		test("[6,36,12,54,-12]", () => {
 			expect(Vec.cancel(vectors[3])).toStrictEqual([1, 6, 2, 9, -2]);

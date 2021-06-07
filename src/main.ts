@@ -122,6 +122,19 @@ export default class Gyolets {
 	}
 
 	/**
+	 * Gyolets.toLaTeX()
+	 * @returns LaTeX形式で行列を出力します
+	 */
+	toLaTeX = (): string => {
+		const latexCommand = [
+			"\\begin{bmatrix}",
+			...this.matrix.map(row => "\t" + row.join(" & ") + " \\" + "\\"),
+			"\\end{bmatrix}"
+		].join("\n");
+		return latexCommand;
+	}
+
+	/**
 	 * Gyolets.reduction()
 	 * 行基本変形を繰り返し行列の簡約化を行ないます。
 	 * @returns 簡約化済みの行列オブジェクトを返します

@@ -15,17 +15,25 @@ describe("最大公約数", () => {
 			result: 2
 		},
 		{
-			args: [10, 3],
-			result: 1
-		},
-		{
 			args: [6461, 1183],
 			result: 91
 		},
 		{
 			args: [0, 4],
 			result: 4
-		}
+		},
+		{
+			args: [-1, 0],
+			result: 1
+		},
+		{
+			args: [-4, -2],
+			result: 2
+		},
+		{
+			args: [0, 0],
+			result: 1
+		},
 	];
 	testCases.forEach(testCase => {
 		test(`gcd(${testCase.args.join(",")})`, () => {

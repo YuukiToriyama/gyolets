@@ -1,7 +1,7 @@
 {
 	"name": "@toriyama/gyolets",
 	"description": "行列簡約化ツール",
-	"version": "0.9.4",
+	"version": "0.9.5",
 	"main": "dist/main.js",
 	"bin": "dist/bin.js",
 	"scripts": {
@@ -12,7 +12,7 @@
 		"build:watch": "tsc --watch",
 		"docs": "typedoc",
 		"clean": "rm -rf ./dist",
-		"prepublish": "npm run test && npm run build"
+		"prepublishOnly": "npm run test && npm run build"
 	},
 	"repository": {
 		"type": "git",

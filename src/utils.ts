@@ -42,11 +42,16 @@ const Vec = {
 			// 最大公約数を求めもとに戻す。これを配列の要素が一つになるまで繰り返す。
 			_vec.push(gcd(_a as number, _b as number));
 		}
-		// 最大公約数で配列を割る
-		vec = vec.map(elem => elem / _vec[0]);
-		// 配列の0でない最初の要素がプラスになるようにする
-		const firstElemNotZero = vec.filter(elem => elem !== 0)[0];
-		return (firstElemNotZero < 0) ? vec.map(elem => 0 + elem * -1) : vec.map(elem => elem + 0);
+		if (_vec.length === 0) {
+			// vecが0ベクトルのとき
+			return vec;
+		} else {
+			// 最大公約数で配列を割る
+			vec = vec.map(elem => elem / _vec[0]);
+			// 配列の0でない最初の要素がプラスになるようにする
+			const firstElemNotZero = vec.filter(elem => elem !== 0)[0];
+			return (firstElemNotZero < 0) ? vec.map(elem => 0 + elem * -1) : vec.map(elem => elem + 0);
+		}
 	}
 }
 export {

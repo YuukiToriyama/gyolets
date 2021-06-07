@@ -2,8 +2,11 @@
 import { cac } from "cac";
 import Gyolets from "./main";
 
-const cli = cac("@toriyama/gyolets");
-cli.version("0.9.3");
+import fs from "fs";
+const { version } = JSON.parse(fs.readFileSync(__dirname + "/../package.json").toString("utf8"));
+
+const cli = cac("gyolets");
+cli.version(version, "--version");
 cli.help();
 
 cli.option("-m, --matrix <number[][]>", "行列オブジェクトに変換したい二次元配列を指定");

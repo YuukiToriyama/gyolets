@@ -1,7 +1,7 @@
 {
 	"name": "@toriyama/gyolets",
 	"description": "行列簡約化ツール",
-	"version": "0.9.3",
+	"version": "0.9.4",
 	"main": "dist/main.js",
 	"bin": "dist/bin.js",
 	"scripts": {

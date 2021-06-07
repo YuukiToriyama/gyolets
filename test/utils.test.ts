@@ -15,17 +15,25 @@ describe("最大公約数", () => {
 			result: 2
 		},
 		{
-			args: [10, 3],
-			result: 1
-		},
-		{
 			args: [6461, 1183],
 			result: 91
 		},
 		{
 			args: [0, 4],
 			result: 4
-		}
+		},
+		{
+			args: [-1, 0],
+			result: 1
+		},
+		{
+			args: [-4, -2],
+			result: 2
+		},
+		{
+			args: [0, 0],
+			result: 1
+		},
 	];
 	testCases.forEach(testCase => {
 		test(`gcd(${testCase.args.join(",")})`, () => {
@@ -76,7 +84,8 @@ describe("ベクトル演算", () => {
 		[0, 0, -4, 6, 10],
 		[6, 36, 12, 54, -12],
 		[1, 2, 3],
-		[3, 4, 5]
+		[3, 4, 5],
+		[0, 0, 0, 0]
 	];
 	describe("足し算", () => {
 		test("[1,2,3] + [3,4,5]", () => {
@@ -113,5 +122,8 @@ describe("ベクトル演算", () => {
 		test("[6,36,12,54,-12]", () => {
 			expect(Vec.cancel(vectors[3])).toStrictEqual([1, 6, 2, 9, -2]);
 		});
+		test("[0,0,0,0]", () => {
+			expect(Vec.cancel(vectors[6])).toStrictEqual([0, 0, 0, 0]);
+		})
 	});
 })

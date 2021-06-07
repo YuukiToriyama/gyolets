@@ -1,8 +1,5 @@
 import { Vec, lcm } from "./utils";
 
-interface elementaryRowOperationOption {
-	rapid: boolean // trueを指定すると同時に複数の行に足し引きするようになる
-}
 /**
  * function elementaryRowOperation
  * 行基本変形を進めるための関数です。
@@ -10,7 +7,7 @@ interface elementaryRowOperationOption {
  * @param option 行基本変形に際してオプションを指定します
  * @returns 行基本変形を施した行列オブジェクトとピボット(変形時にどの行に注目したかのヒント)を返します
  */
-const elementaryRowOperation = (matrix: Gyolets, option: elementaryRowOperationOption): { matrix: Gyolets, pivots: [number, number][] } => {
+const elementaryRowOperation = (matrix: Gyolets, option: GyoletsConstructorOptions): { matrix: Gyolets, pivots: [number, number][] } => {
 	// どの行のどの要素に注目して行基本変形を行なったのかを記録しておく
 	let pivots: [number, number][] = [];
 	// m行n列をイメージ
@@ -48,11 +45,7 @@ const elementaryRowOperation = (matrix: Gyolets, option: elementaryRowOperationO
 								row_j = row_j.map(elem => elem * lcm_injn / _jn);
 							}
 							// j行目をi行目を使って整理する
-							if (_in * _jn > 0) {
-								row_j = Vec.sub(row_i, row_j);
-							} else {
-								row_j = Vec.add(row_i, row_j);
-							}
+							row_j = Vec.sub(row_i, row_j);
 							// もとの行列に整理されたj行目を書き込む
 							// 書き込む前に約分する
 							matrix.matrix[j] = Vec.cancel(row_j);
@@ -80,8 +73,9 @@ const elementaryRowOperation = (matrix: Gyolets, option: elementaryRowOperationO
 	}
 }
 
-export interface GyoletsConstructorOptions extends elementaryRowOperationOption {
+export interface GyoletsConstructorOptions {
 	verbose?: boolean // trueにすると計算過程を表示するようになる
+	rapid?: boolean // trueを指定すると同時に複数の行に足し引きするようになる
 }
 /**
  * Gyoletsクラス
@@ -105,8 +99,8 @@ export default class Gyolets {
 		this.rowSize = matrixSize.row;
 		this.columnSize = matrixSize.column;
 		this.options = {
-			rapid: options!!.rapid ? true : false, // defaultはfalse
-			verbose: options!!.verbose ? true : false // defaultはtrue
+			rapid: options?.rapid ? true : false, // defaultはfalse
+			verbose: options?.verbose ? true : false // defaultはtrue
 		};
 		this.isReduced = isReduced || false;
 	}
@@ -146,6 +140,34 @@ export default class Gyolets {
 			this.isReduced = true;
 			console.log("簡約化は終了しました");
 		}
-		return this.isReduced ? this : this.reduction();
+		return this.isReduced ? this.toEchelonFrom() : this.reduction();
+	}
+
+	/**
+	 * Gyolets.toEchlonForm()
+	 * @returns 階段形に変形した行列を返します
+	 */
+	toEchelonFrom = (): Gyolets => {
+		let _mat = [...this.matrix];
+		// 各行において0でない要素が左から数えて何番目に出てくるかを調べる
+		const permutation = _mat.map((row, index) => ({
+			row: index,
+			nonZeroIndex: row.indexOf(row.filter(elem => elem !== 0)[0])
+		})).sort((a, b) => {
+			return a.nonZeroIndex - b.nonZeroIndex
+		});
+		// _matを並び替える
+		let result: number[][] = [];
+		permutation.forEach(perm => {
+			result.push(_mat[perm.row]);
+		});
+		// 1行目が0ベクトルの場合、最終行に移動
+		if (result.length >= 2 && result[0].every(elem => elem === 0)) {
+			let zeroVec = result.shift();
+			result.push(zeroVec as number[]);
+		}
+		// 値を返す
+		this.matrix = result;
+		return this;
 	}
 }

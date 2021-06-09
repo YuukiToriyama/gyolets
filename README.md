@@ -27,7 +27,10 @@ const mat = new Gyolets([
 	[4, 5, 6],
 	[7, 8, 9]
 ], {row: 3, column: 3});
-const reducedMat = mat.reduction();
+const reducedMat = mat.reduction({
+	rapid: true,
+	verbose: false
+});
 console.log(reducedMat.toString());
 ```
 ```console
@@ -35,6 +38,9 @@ console.log(reducedMat.toString());
 0	1	2
 0	0	0
 ```
+
+## Docs
+[https://yuukitoriyama.github.io/gyolets/](https://yuukitoriyama.github.io/gyolets/)
 
 ## License
 MIT License

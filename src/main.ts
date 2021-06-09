@@ -73,6 +73,16 @@ const elementaryRowOperation = (matrix: Gyolets, option: GyoletsConstructorOptio
 	}
 }
 
+type matrix2latexOption = "matrix" | "pmatrix" | "bmatrix" | "Bmatrix" | "vmatrix" | "Vmatrix";
+const matrix2latex = (matrix: number[][], option: matrix2latexOption): string => {
+	const latexCommand = [
+		"\\begin{" + option + "}",
+		...matrix.map(row => "\t" + row.join(" & ") + " \\" + "\\"),
+		"\\end{" + option + "}"
+	].join("\n");
+	return latexCommand;
+}
+
 export interface GyoletsConstructorOptions {
 	verbose?: boolean // trueにすると計算過程を表示するようになる
 	rapid?: boolean // trueを指定すると同時に複数の行に足し引きするようになる
@@ -123,15 +133,11 @@ export default class Gyolets {
 
 	/**
 	 * Gyolets.toLaTeX()
+	 * @param option LaTeX出力する際のデザインを指定します
 	 * @returns LaTeX形式で行列を出力します
 	 */
-	toLaTeX = (): string => {
-		const latexCommand = [
-			"\\begin{bmatrix}",
-			...this.matrix.map(row => "\t" + row.join(" & ") + " \\" + "\\"),
-			"\\end{bmatrix}"
-		].join("\n");
-		return latexCommand;
+	toLaTeX = (option?: matrix2latexOption): string => {
+		return matrix2latex(this.matrix, option || "bmatrix");
 	}
 
 	/**

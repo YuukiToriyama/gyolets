@@ -23,11 +23,12 @@ if (parsed.options.matrix !== undefined) {
 	const mat = new Gyolets(array, {
 		row: array.length,
 		column: array[0].length
-	}, {
+	});
+	const reductionOption = {
 		verbose: parsed.options.verbose,
 		rapid: parsed.options.rapid
-	});
+	}
 	console.log(mat.toString());
-	const result = mat.reduction();
+	const result = mat.reduction(reductionOption);
 	console.log(result.toString());
 }

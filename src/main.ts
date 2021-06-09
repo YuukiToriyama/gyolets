@@ -7,7 +7,7 @@ import { Vec, lcm } from "./utils";
  * @param option 行基本変形に際してオプションを指定します
  * @returns 行基本変形を施した行列オブジェクトとピボット(変形時にどの行に注目したかのヒント)を返します
  */
-const elementaryRowOperation = (matrix: Gyolets, option: GyoletsConstructorOptions): { matrix: Gyolets, pivots: [number, number][] } => {
+const elementaryRowOperation = (matrix: Gyolets, option: { verbose: boolean, rapid: boolean }): { matrix: Gyolets, pivots: [number, number][] } => {
 	// どの行のどの要素に注目して行基本変形を行なったのかを記録しておく
 	let pivots: [number, number][] = [];
 	// m行n列をイメージ
@@ -83,10 +83,6 @@ const matrix2latex = (matrix: number[][], option: matrix2latexOption): string =>
 	return latexCommand;
 }
 
-export interface GyoletsConstructorOptions {
-	verbose?: boolean // trueにすると計算過程を表示するようになる
-	rapid?: boolean // trueを指定すると同時に複数の行に足し引きするようになる
-}
 /**
  * Gyoletsクラス
  * 行列オブジェクトを作成します。
@@ -95,23 +91,17 @@ export default class Gyolets {
 	matrix: number[][];
 	rowSize: number;
 	columnSize: number;
-	options: GyoletsConstructorOptions;
 	isReduced: boolean;
 	/**
 	 * コンストラクタ
 	 * @param matrix 配列オブジェクトに変換したい二次元配列を指定します
 	 * @param matrixSize 二次元配列の大きさを指定します
-	 * @param options オプションを指定します
 	 * @param isReduced (ユーザーが指定する必要はありません)
 	 */
-	constructor(matrix: number[][], matrixSize: { row: number, column: number }, options?: GyoletsConstructorOptions, isReduced?: boolean) {
+	constructor(matrix: number[][], matrixSize: { row: number, column: number }, isReduced?: boolean) {
 		this.matrix = matrix;
 		this.rowSize = matrixSize.row;
 		this.columnSize = matrixSize.column;
-		this.options = {
-			rapid: options?.rapid ? true : false, // defaultはfalse
-			verbose: options?.verbose ? true : false // defaultはtrue
-		};
 		this.isReduced = isReduced || false;
 	}
 
@@ -145,10 +135,13 @@ export default class Gyolets {
 	 * 行基本変形を繰り返し行列の簡約化を行ないます。
 	 * @returns 簡約化済みの行列オブジェクトを返します
 	 */
-	reduction = (): Gyolets => {
-		const _processed = elementaryRowOperation(this, this.options);
+	reduction = (option?: { verbose?: boolean, rapid?: boolean, latex?: boolean }): Gyolets => {
+		const _processed = elementaryRowOperation(this, {
+			verbose: option?.verbose || true, // trueにすると計算過程を表示するようになる(defaultはtrue)
+			rapid: option?.rapid || false // trueを指定すると同時に複数の行に足し引きするようになる(defaultはfalse)
+		});
 		// verboseオプションがonになっている場合
-		if (this.options.verbose === true) {
+		if (option?.verbose === true) {
 			// ピボットを表示
 			console.log(_processed.pivots);
 			// 行基本変形を行なった行列を表示
@@ -159,7 +152,7 @@ export default class Gyolets {
 			this.isReduced = true;
 			console.log("簡約化は終了しました");
 		}
-		return this.isReduced ? this.toEchelonFrom() : this.reduction();
+		return this.isReduced ? this.toEchelonFrom() : this.reduction(option);
 	}
 
 	/**

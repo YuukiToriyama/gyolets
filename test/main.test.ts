@@ -5,7 +5,7 @@ describe("階段化", () => {
 		const mat = new Gyolets([[0, 2, 0], [1, 0, 0], [0, 0, 3]], {
 			row: 3,
 			column: 3
-		}, undefined, true);
+		}, true);
 		const result = mat.toEchelonFrom();
 		expect(result.toArray()).toStrictEqual([[1, 0, 0], [0, 2, 0], [0, 0, 3]]);
 	});
@@ -13,7 +13,7 @@ describe("階段化", () => {
 		const mat = new Gyolets([[1, 2, 0], [0, 0, 0], [0, 4, 3]], {
 			row: 3,
 			column: 3
-		}, undefined, true);
+		}, true);
 		const result = mat.toEchelonFrom();
 		expect(result.toArray()).toStrictEqual([[1, 2, 0], [0, 4, 3], [0, 0, 0]]);
 	});

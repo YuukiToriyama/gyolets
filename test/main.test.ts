@@ -5,7 +5,7 @@ describe("階段化", () => {
 		const mat = new Gyolets([[0, 2, 0], [1, 0, 0], [0, 0, 3]], {
 			row: 3,
 			column: 3
-		}, undefined, true);
+		}, true);
 		const result = mat.toEchelonFrom();
 		expect(result.toArray()).toStrictEqual([[1, 0, 0], [0, 2, 0], [0, 0, 3]]);
 	});
@@ -13,7 +13,7 @@ describe("階段化", () => {
 		const mat = new Gyolets([[1, 2, 0], [0, 0, 0], [0, 4, 3]], {
 			row: 3,
 			column: 3
-		}, undefined, true);
+		}, true);
 		const result = mat.toEchelonFrom();
 		expect(result.toArray()).toStrictEqual([[1, 2, 0], [0, 4, 3], [0, 0, 0]]);
 	});
@@ -92,6 +92,46 @@ describe("行列の簡約化", () => {
 			const reducedMat = mat.reduction();
 			expect(reducedMat.toArray()).toEqual(testCase.output);
 		})
-	})
+	});
+});
 
-})
+describe("LaTeX出力", () => {
+	const testCases: { input: number[][], output: string }[] = [
+		{
+			input: [
+				[0, 1, 0],
+				[1, 0, 0],
+				[0, 0, 1]
+			],
+			output: [
+				"\\begin{bmatrix}",
+				"\t0 & 1 & 0 \\\\",
+				"\t1 & 0 & 0 \\\\",
+				"\t0 & 0 & 1 \\\\",
+				"\\end{bmatrix}"
+			].join("\n")
+		},
+		{
+			input: [
+				[1, 5],
+				[3, 1]
+			],
+			output: [
+				"\\begin{bmatrix}",
+				"\t1 & 5 \\\\",
+				"\t3 & 1 \\\\",
+				"\\end{bmatrix}"
+			].join("\n")
+		}
+	];
+	testCases.forEach(testCase => {
+		const testName = "[" + testCase.input.map(row => `[${row.toString()}]`) + "]";
+		test(testName, () => {
+			const mat = new Gyolets(testCase.input, {
+				row: testCase.input.length,
+				column: testCase.input[0].length
+			});
+			expect(mat.toLaTeX()).toEqual(testCase.output);
+		})
+	})
+});

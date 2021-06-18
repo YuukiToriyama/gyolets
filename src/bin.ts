@@ -6,8 +6,6 @@ import fs from "fs";
 const { version } = JSON.parse(fs.readFileSync(__dirname + "/../package.json").toString("utf8"));
 
 const cli = cac("gyolets");
-cli.version(version, "--version");
-cli.help();
 
 cli.option("-m, --matrix <number[][]>", "行列オブジェクトに変換したい二次元配列を指定");
 cli.option("-v, --verbose", "計算過程を逐次表示します", {
@@ -16,6 +14,11 @@ cli.option("-v, --verbose", "計算過程を逐次表示します", {
 cli.option("-r, --rapid", "途中計算を少し省略します", {
 	default: false
 });
+cli.option("-l, --latex <string>", "LaTeX形式で出力します", {
+	default: false
+});
+cli.version(version, "--version");
+cli.help();
 
 const parsed = cli.parse();
 if (parsed.options.matrix !== undefined) {
@@ -24,11 +27,23 @@ if (parsed.options.matrix !== undefined) {
 		row: array.length,
 		column: array[0].length
 	});
+	// --latexフラグは立っているが具体的に指定されていない場合"pmatrix"を指定する
+	const latexOption = (parsed.options.latex === true) ? "pmatrix" : parsed.options.latex;
+	// オプションをまとめる
 	const reductionOption = {
 		verbose: parsed.options.verbose,
-		rapid: parsed.options.rapid
+		rapid: parsed.options.rapid,
+		latex: latexOption
 	}
-	console.log(mat.toString());
-	const result = mat.reduction(reductionOption);
-	console.log(result.toString());
+	if (parsed.options.latex !== false) {
+		// --latexフラグが立っている場合
+		console.log(mat.toLaTeX(latexOption));
+		const result = mat.reduction(reductionOption);
+		console.log(result.toLaTeX(latexOption));
+	} else {
+		// --latexフラグがない場合
+		console.log(mat.toString());
+		const result = mat.reduction(reductionOption);
+		console.log(result.toString());
+	}
 }

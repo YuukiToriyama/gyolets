@@ -6,14 +6,93 @@ CLIツールとして使えるほか、ライブラリとして他のプログ�
 
 ## Usage
 ### CLI
+#### Installation
 ```bash
-npm install -g @toriyama/gyolets
-gyolets -m "[[1,2,3], [4,5,6], [7,8,9]]"
+$ npm install -g @toriyama/gyolets
 ```
-```console
+#### `-m, --matrix <number[][]>`
+```bash
+$ gyolets -m "[[1,2,3], [4,5,6], [7,8,9]]"
+```
+```terminal
 1	0	-1
 0	1	2
 0	0	0
+```
+#### `-v, --verbose`
+```bash
+$ gyolets -v -m "[[1,2,3], [4,5,6], [7,8,9]]" 
+```
+```terminal
+1       2       3
+4       5       6
+7       8       9
+[ [ 1, 2 ] ]
+1       2       3
+0       1       2
+7       8       9
+[ [ 1, 3 ] ]
+1       2       3
+0       1       2
+0       1       2
+[ [ 2, 1 ] ]
+1       0       -1
+0       1       2
+0       1       2
+[ [ 2, 3 ] ]
+1       0       -1
+0       1       2
+0       0       0
+[]
+1       0       -1
+0       1       2
+0       0       0
+```
+#### `-l, --latex <string>`
+```bash
+$ node dist/bin.js -l -v -m "[[2,2,1,1,0,0], [3,1,-1,0,1,0], [4,3,1,0,0,1]]"
+```
+```latex
+\begin{bmatrix}
+        2 & 2 & 1 & 1 & 0 & 0 \\
+        3 & 1 & -1 & 0 & 1 & 0 \\
+        4 & 3 & 1 & 0 & 0 & 1 \\
+\end{bmatrix}
+\begin{bmatrix}
+        2 & 2 & 1 & 1 & 0 & 0 \\
+        0 & 4 & 5 & 3 & -2 & 0 \\
+        4 & 3 & 1 & 0 & 0 & 1 \\
+\end{bmatrix}
+\begin{bmatrix}
+        2 & 2 & 1 & 1 & 0 & 0 \\
+        0 & 4 & 5 & 3 & -2 & 0 \\
+        0 & 1 & 1 & 2 & 0 & -1 \\
+\end{bmatrix}
+\begin{bmatrix}
+        4 & 0 & -3 & -1 & 2 & 0 \\
+        0 & 4 & 5 & 3 & -2 & 0 \\
+        0 & 1 & 1 & 2 & 0 & -1 \\
+\end{bmatrix}
+\begin{bmatrix}
+        4 & 0 & -3 & -1 & 2 & 0 \\
+        0 & 4 & 5 & 3 & -2 & 0 \\
+        0 & 0 & 1 & -5 & -2 & 4 \\
+\end{bmatrix}
+\begin{bmatrix}
+        1 & 0 & 0 & -4 & -1 & 3 \\
+        0 & 4 & 5 & 3 & -2 & 0 \\
+        0 & 0 & 1 & -5 & -2 & 4 \\
+\end{bmatrix}
+\begin{bmatrix}
+        1 & 0 & 0 & -4 & -1 & 3 \\
+        0 & 1 & 0 & 7 & 2 & -5 \\
+        0 & 0 & 1 & -5 & -2 & 4 \\
+\end{bmatrix}
+\begin{bmatrix}
+        1 & 0 & 0 & -4 & -1 & 3 \\
+        0 & 1 & 0 & 7 & 2 & -5 \\
+        0 & 0 & 1 & -5 & -2 & 4 \\
+\end{bmatrix}
 ```
 
 ### JavaScript
@@ -40,10 +119,14 @@ console.log(reducedMat.toString());
 ```
 
 ## Docs
-[https://yuukitoriyama.github.io/gyolets/](https://yuukitoriyama.github.io/gyolets/)
+For more details, see [https://yuukitoriyama.github.io/gyolets/](https://yuukitoriyama.github.io/gyolets/)
 
 ## License
 MIT License
+
+## Contribution
+不具合などあればご気軽にIssueから！  
+こんな機能がほしい！などのコメントもお待ちしています。
 
 ## Author
 YUUKIToriyama

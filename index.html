@@ -72,12 +72,94 @@
 				<a href="#cli" id="cli" style="color: inherit; text-decoration: none;">
 					<h3>CLI</h3>
 				</a>
-				<pre><code class="language-bash"><span style="color: #000000">npm install -g @toriyama/gyolets</span>
-<span style="color: #000000">gyolets -m </span><span style="color: #A31515">&quot;[[1,2,3], [4,5,6], [7,8,9]]&quot;</span>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h4>Installation</h4>
+				</a>
+				<pre><code class="language-bash"><span style="color: #000000">$ npm install -g @toriyama/gyolets</span>
 </code></pre>
-				<pre><code class="language-console">1    0    -1
+				<a href="#-m---matrix-ltnumbergt" id="-m---matrix-ltnumbergt" style="color: inherit; text-decoration: none;">
+					<h4><code>-m, --matrix &lt;number[][]&gt;</code></h4>
+				</a>
+				<pre><code class="language-bash"><span style="color: #000000">$ gyolets -m </span><span style="color: #A31515">&quot;[[1,2,3], [4,5,6], [7,8,9]]&quot;</span>
+</code></pre>
+				<pre><code class="language-terminal">1    0    -1
 0    1    2
 0    0    0
+</code></pre>
+				<a href="#-v---verbose" id="-v---verbose" style="color: inherit; text-decoration: none;">
+					<h4><code>-v, --verbose</code></h4>
+				</a>
+				<pre><code class="language-bash"><span style="color: #000000">$ gyolets -v -m </span><span style="color: #A31515">&quot;[[1,2,3], [4,5,6], [7,8,9]]&quot;</span><span style="color: #000000"> </span>
+</code></pre>
+				<pre><code class="language-terminal">1       2       3
+4       5       6
+7       8       9
+[ [ 1, 2 ] ]
+1       2       3
+0       1       2
+7       8       9
+[ [ 1, 3 ] ]
+1       2       3
+0       1       2
+0       1       2
+[ [ 2, 1 ] ]
+1       0       -1
+0       1       2
+0       1       2
+[ [ 2, 3 ] ]
+1       0       -1
+0       1       2
+0       0       0
+[]
+1       0       -1
+0       1       2
+0       0       0
+</code></pre>
+				<a href="#-l---latex-ltstringgt" id="-l---latex-ltstringgt" style="color: inherit; text-decoration: none;">
+					<h4><code>-l, --latex &lt;string&gt;</code></h4>
+				</a>
+				<pre><code class="language-bash"><span style="color: #000000">$ gyolets -l -v -m </span><span style="color: #A31515">&quot;[[2,2,1,1,0,0], [3,1,-1,0,1,0], [4,3,1,0,0,1]]&quot;</span>
+</code></pre>
+				<pre><code class="language-latex"><span style="color: #795E26">\begin</span><span style="color: #000000">{</span><span style="color: #001080">bmatrix</span><span style="color: #000000">}</span>
+<span style="color: #267F99">        2 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 2 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">\\</span>
+<span style="color: #267F99">        3 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">\\</span>
+<span style="color: #267F99">        4 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 3 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 1 </span><span style="color: #AF00DB">\\</span>
+<span style="color: #795E26">\end</span><span style="color: #000000">{</span><span style="color: #001080">bmatrix</span><span style="color: #000000">}</span>
+<span style="color: #795E26">\begin</span><span style="color: #000000">{</span><span style="color: #001080">bmatrix</span><span style="color: #000000">}</span>
+<span style="color: #267F99">        2 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 2 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">\\</span>
+<span style="color: #267F99">        0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 4 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 5 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 3 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -2 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">\\</span>
+<span style="color: #267F99">        4 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 3 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 1 </span><span style="color: #AF00DB">\\</span>
+<span style="color: #795E26">\end</span><span style="color: #000000">{</span><span style="color: #001080">bmatrix</span><span style="color: #000000">}</span>
+<span style="color: #795E26">\begin</span><span style="color: #000000">{</span><span style="color: #001080">bmatrix</span><span style="color: #000000">}</span>
+<span style="color: #267F99">        2 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 2 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">\\</span>
+<span style="color: #267F99">        0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 4 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 5 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 3 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -2 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">\\</span>
+<span style="color: #267F99">        0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 2 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -1 </span><span style="color: #AF00DB">\\</span>
+<span style="color: #795E26">\end</span><span style="color: #000000">{</span><span style="color: #001080">bmatrix</span><span style="color: #000000">}</span>
+<span style="color: #795E26">\begin</span><span style="color: #000000">{</span><span style="color: #001080">bmatrix</span><span style="color: #000000">}</span>
+<span style="color: #267F99">        4 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -3 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 2 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">\\</span>
+<span style="color: #267F99">        0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 4 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 5 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 3 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -2 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">\\</span>
+<span style="color: #267F99">        0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 2 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -1 </span><span style="color: #AF00DB">\\</span>
+<span style="color: #795E26">\end</span><span style="color: #000000">{</span><span style="color: #001080">bmatrix</span><span style="color: #000000">}</span>
+<span style="color: #795E26">\begin</span><span style="color: #000000">{</span><span style="color: #001080">bmatrix</span><span style="color: #000000">}</span>
+<span style="color: #267F99">        4 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -3 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 2 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">\\</span>
+<span style="color: #267F99">        0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 4 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 5 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 3 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -2 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">\\</span>
+<span style="color: #267F99">        0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -5 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -2 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 4 </span><span style="color: #AF00DB">\\</span>
+<span style="color: #795E26">\end</span><span style="color: #000000">{</span><span style="color: #001080">bmatrix</span><span style="color: #000000">}</span>
+<span style="color: #795E26">\begin</span><span style="color: #000000">{</span><span style="color: #001080">bmatrix</span><span style="color: #000000">}</span>
+<span style="color: #267F99">        1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -4 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 3 </span><span style="color: #AF00DB">\\</span>
+<span style="color: #267F99">        0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 4 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 5 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 3 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -2 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">\\</span>
+<span style="color: #267F99">        0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -5 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -2 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 4 </span><span style="color: #AF00DB">\\</span>
+<span style="color: #795E26">\end</span><span style="color: #000000">{</span><span style="color: #001080">bmatrix</span><span style="color: #000000">}</span>
+<span style="color: #795E26">\begin</span><span style="color: #000000">{</span><span style="color: #001080">bmatrix</span><span style="color: #000000">}</span>
+<span style="color: #267F99">        1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -4 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 3 </span><span style="color: #AF00DB">\\</span>
+<span style="color: #267F99">        0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 7 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 2 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -5 </span><span style="color: #AF00DB">\\</span>
+<span style="color: #267F99">        0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -5 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -2 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 4 </span><span style="color: #AF00DB">\\</span>
+<span style="color: #795E26">\end</span><span style="color: #000000">{</span><span style="color: #001080">bmatrix</span><span style="color: #000000">}</span>
+<span style="color: #795E26">\begin</span><span style="color: #000000">{</span><span style="color: #001080">bmatrix</span><span style="color: #000000">}</span>
+<span style="color: #267F99">        1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -4 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 3 </span><span style="color: #AF00DB">\\</span>
+<span style="color: #267F99">        0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 7 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 2 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -5 </span><span style="color: #AF00DB">\\</span>
+<span style="color: #267F99">        0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 0 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 1 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -5 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> -2 </span><span style="color: #AF00DB">&amp;</span><span style="color: #267F99"> 4 </span><span style="color: #AF00DB">\\</span>
+<span style="color: #795E26">\end</span><span style="color: #000000">{</span><span style="color: #001080">bmatrix</span><span style="color: #000000">}</span>
 </code></pre>
 				<a href="#javascript" id="javascript" style="color: inherit; text-decoration: none;">
 					<h3>JavaScript</h3>
@@ -103,11 +185,15 @@
 				<a href="#docs" id="docs" style="color: inherit; text-decoration: none;">
 					<h2>Docs</h2>
 				</a>
-				<p><a href="https://yuukitoriyama.github.io/gyolets/">https://yuukitoriyama.github.io/gyolets/</a></p>
+				<p>For more details, see <a href="https://yuukitoriyama.github.io/gyolets/">https://yuukitoriyama.github.io/gyolets/</a></p>
 				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
 					<h2>License</h2>
 				</a>
 				<p>MIT License</p>
+				<a href="#contribution" id="contribution" style="color: inherit; text-decoration: none;">
+					<h2>Contribution</h2>
+				</a>
+				<p>不具合などあればご気軽にIssueから！<br>こんな機能がほしい！などのコメントもお待ちしています。</p>
 				<a href="#author" id="author" style="color: inherit; text-decoration: none;">
 					<h2>Author</h2>
 				</a>

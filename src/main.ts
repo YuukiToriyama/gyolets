@@ -135,22 +135,25 @@ export default class Gyolets {
 	 * 行基本変形を繰り返し行列の簡約化を行ないます。
 	 * @returns 簡約化済みの行列オブジェクトを返します
 	 */
-	reduction = (option?: { verbose?: boolean, rapid?: boolean, latex?: boolean }): Gyolets => {
+	reduction = (option?: { verbose?: boolean, rapid?: boolean, latex?: false | matrix2latexOption }): Gyolets => {
 		const _processed = elementaryRowOperation(this, {
 			verbose: option?.verbose || true, // trueにすると計算過程を表示するようになる(defaultはtrue)
 			rapid: option?.rapid || false // trueを指定すると同時に複数の行に足し引きするようになる(defaultはfalse)
 		});
 		// verboseオプションがonになっている場合
-		if (option?.verbose === true) {
-			// ピボットを表示
-			console.log(_processed.pivots);
-			// 行基本変形を行なった行列を表示
-			console.log(_processed.matrix.toString());
+		if (option?.verbose) {
+			if (option?.latex === false) {
+				// LaTeXオプションが指定されていない場合
+				console.log(_processed.pivots);
+				console.log(_processed.matrix.toString());
+			} else {
+				// LaTeXオプションが指定されている場合
+				console.log(_processed.matrix.toLaTeX(option.latex));
+			}
 		}
 		// 変形が手詰まりになったらisReducedのフラグを建てる
 		if (_processed.pivots[0] === undefined) {
 			this.isReduced = true;
-			console.log("簡約化は終了しました");
 		}
 		return this.isReduced ? this.toEchelonFrom() : this.reduction(option);
 	}

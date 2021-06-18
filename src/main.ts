@@ -154,9 +154,6 @@ export default class Gyolets {
 		// 変形が手詰まりになったらisReducedのフラグを建てる
 		if (_processed.pivots[0] === undefined) {
 			this.isReduced = true;
-			if (option?.verbose) {
-				console.log("% 簡約化は終了しました");
-			}
 		}
 		return this.isReduced ? this.toEchelonFrom() : this.reduction(option);
 	}

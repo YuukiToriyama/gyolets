@@ -35,15 +35,23 @@ if (parsed.options.matrix !== undefined) {
 		rapid: parsed.options.rapid,
 		latex: latexOption
 	}
-	if (parsed.options.latex !== false) {
+	if (reductionOption.latex !== false) {
 		// --latexフラグが立っている場合
-		console.log(mat.toLaTeX(latexOption));
+		if (reductionOption.verbose) {
+			console.log(mat.toLaTeX(latexOption));
+		}
 		const result = mat.reduction(reductionOption);
-		console.log(result.toLaTeX(latexOption));
+		if (!reductionOption.verbose) {
+			console.log(result.toLaTeX(latexOption));
+		}
 	} else {
 		// --latexフラグがない場合
-		console.log(mat.toString());
+		if (reductionOption.verbose) {
+			console.log(mat.toString());
+		}
 		const result = mat.reduction(reductionOption);
-		console.log(result.toString());
+		if (!reductionOption.verbose) {
+			console.log(result.toString());
+		}
 	}
 }

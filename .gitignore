@@ -13,5 +13,7 @@ node_modules/
 dist
 
 # typedoc & webapi
-public/*
-!public/index.html
+public/
+
+# parcel cache
+.cache

@@ -24,7 +24,7 @@
 	},
 	"include": [
 		"./src"
-	],
+, "web/modules"	],
 	"exclude": [
 		"./test"
 	]

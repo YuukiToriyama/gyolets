@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import "@blueprintjs/core/lib/css/blueprint.css";
 import Header from './modules/Header';
 
 const App: React.FunctionComponent = () => {

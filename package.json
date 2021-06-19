@@ -10,7 +10,7 @@
 		"test:main": "jest test/main.test.ts",
 		"build": "npm run clean && tsc && npm run docs",
 		"build:watch": "tsc --watch",
-		"docs": "typedoc",
+		"docs": "typedoc --out build/docs",
 		"clean": "rm -rf ./dist",
 		"prepublishOnly": "npm run test && npm run build"
 	},

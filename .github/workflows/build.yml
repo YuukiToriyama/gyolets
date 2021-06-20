@@ -27,7 +27,8 @@ jobs:
       - name: install and build
         run: |
           npm ci
-          npm run docs
+          npm run build:docs
+          npm run build:web
         env:
           CI: true
 

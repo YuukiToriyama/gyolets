@@ -1,5 +1,7 @@
 import React from 'react';
-
+import {
+	Card
+} from '@blueprintjs/core';
 interface SectionProps {
 	description?: {
 		label: string
@@ -8,11 +10,11 @@ interface SectionProps {
 }
 const Section: React.FunctionComponent<SectionProps> = (props) => {
 	return (
-		<React.Fragment>
+		<Card>
 			<h1>{props.description?.label}</h1>
 			<p >{props.description?.text}</p>
 			{props.children}
-		</React.Fragment>
+		</Card>
 	)
 }
 export default Section;

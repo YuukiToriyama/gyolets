@@ -5,15 +5,15 @@
 	"main": "dist/main.js",
 	"bin": "dist/bin.js",
 	"scripts": {
-		"build": "rm -rf ./dist && npm run clean && tsc",
+		"build": "rm -rf ./dist && tsc",
 		"build:watch": "tsc --watch",
 		"build:docs": "typedoc --out public/docs",
 		"build:web": "rm -rf ./public && tsc --noEmit && parcel build web/index.html -d public",
-		"build:web:watch": "parcel web/index.html --open",
+		"build:web:watch": "parcel web/index.html -d public --open",
 		"test": "jest",
 		"test:utils": "jest test/utils.test.ts",
 		"test:main": "jest test/main.test.ts",
-		"prepublishOnly": "npm run test && npm run build && npm run build:docs && npm run build:web"
+		"prepublishOnly": "npm run test && npm run build"
 	},
 	"repository": {
 		"type": "git",

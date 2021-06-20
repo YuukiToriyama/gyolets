@@ -73,7 +73,7 @@ const elementaryRowOperation = (matrix: Gyolets, option: { verbose: boolean, rap
 	}
 }
 
-type matrix2latexOption = "matrix" | "pmatrix" | "bmatrix" | "Bmatrix" | "vmatrix" | "Vmatrix";
+export type matrix2latexOption = "matrix" | "pmatrix" | "bmatrix" | "Bmatrix" | "vmatrix" | "Vmatrix";
 const matrix2latex = (matrix: number[][], option: matrix2latexOption): string => {
 	const latexCommand = [
 		"\\begin{" + option + "}",

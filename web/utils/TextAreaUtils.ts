@@ -71,6 +71,12 @@ export class TextAreaUtils {
 				this.textArea.value = this.cursor.leftString + "[]" + this.cursor.rightString;
 				this.textArea.selectionEnd = this.cursor.position + 1;
 			}
+			if (event.key === ",") {
+				event.preventDefault();
+				this.getCursor();
+				this.textArea.value = this.cursor.leftString + ", " + this.cursor.rightString;
+				this.textArea.selectionEnd = this.cursor.position + 2;
+			}
 		});
 	}
 }

@@ -9,29 +9,17 @@ import {
 } from '../utils';
 
 interface InputFormProps {
-	description?: {
-		label: string
-		text: string
-	}
-	defaultValue?: string
+	defaultValue: string
+	onChange: (json: object) => void
 }
 const InputForm: React.FunctionComponent<InputFormProps> = (props) => {
 	const [value, setValue] = React.useState<{ string: string, isValid: boolean }>({
 		string: props.defaultValue || "",
 		isValid: true
 	});
-	const [errorMessage, setErrorMessage] = React.useState<string>("");
-	const Label = () => {
-		return (
-			<React.Fragment>
-				<h1>{props.description?.label}</h1>
-				<p >{props.description?.text}</p>
-			</React.Fragment>
-		)
-	}
+	const [errorMessage, setErrorMessage] = React.useState<Error>();
 	return (
 		<React.Fragment>
-			{props.description !== undefined && <Label />}
 			<EditableText
 				multiline={true}
 				minLines={4}
@@ -43,6 +31,9 @@ const InputForm: React.FunctionComponent<InputFormProps> = (props) => {
 						string: text,
 						isValid: validateJSONString(text, setErrorMessage)
 					});
+					if (value.isValid) {
+						props.onChange(JSON.parse(text));
+					}
 				}}
 				onEdit={() => {
 					const utils = new TextAreaUtils(document.querySelector(".bp3-editable-text-input")!!);
@@ -50,6 +41,15 @@ const InputForm: React.FunctionComponent<InputFormProps> = (props) => {
 					utils.enableAutoComplete();
 				}}
 				intent={value.isValid === true ? "success" : "danger"}
+			/>
+			<EditableText
+				multiline={true}
+				minLines={1}
+				maxLines={3}
+				placeholder=""
+				value={value.isValid ? "" : errorMessage?.message}
+				intent="warning"
+				disabled={true}
 			/>
 		</React.Fragment>
 	)
